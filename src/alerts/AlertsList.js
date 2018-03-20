@@ -65,10 +65,10 @@ class AlertListItem extends Component {
                   <Card.Header>
                      <Grid columns="16">
                         <Grid.Row>
-                           <Grid.Column width="10" mobile="16" verticalAlign="middle">
+                           <Grid.Column largeScreen="12" computer="10" widescreen="10" tablet="10" mobile="16" verticalAlign="middle">
                               <Header as="h3">{info.headline.toUpperCase()}</Header>
                            </Grid.Column>
-                           <Grid.Column width="6" mobile="16" textAlign="right" verticalAlign="middle">
+                           <Grid.Column largeScreen="4" computer="6" widescreen="6" tablet="6" mobile="16" textAlign="right" verticalAlign="middle">
                               <Label color={this.urgencyColours[info.urgency]} size="small">
                                  {info.urgency}
                               </Label>
