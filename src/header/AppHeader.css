@@ -1,0 +1,15 @@
+.app-header {
+   padding: 1rem 0;
+}
+
+.app-header span.header {
+   font-weight: 100;
+   vertical-align: bottom;
+   display: inline-block;
+   margin: 0;
+}
+
+.app-header img {
+   margin: 0 auto;
+   display: inline !important;
+}

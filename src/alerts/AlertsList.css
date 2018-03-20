@@ -1,0 +1,32 @@
+.alert {
+   margin: 1rem 0;
+}
+
+.areas {
+   font-size: .9em !important;
+   margin-top: .5rem;
+}
+
+.area {
+   border-right: 1px solid #ddd;
+   padding-right: 10px;
+   padding-left: 8px;
+}
+
+.area:first-child {
+   padding-left: 0;
+}
+
+.area:last-child {
+   border-right: none;
+   padding-right: 0;
+}
+
+.area.hit {
+   font-weight: bold !important;
+   text-decoration: underline;
+}
+
+.instruction {
+   font-weight: bold;
+}
