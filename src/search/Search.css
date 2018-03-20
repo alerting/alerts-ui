@@ -5,3 +5,7 @@
 .paginator {
    margin-top: 2rem;
 }
+
+.ui.container.search {
+   margin: 0 !important;
+}

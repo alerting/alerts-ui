@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Search.css';
 
-import { Button, Card, Container, Form, Grid, Header, Message } from 'semantic-ui-react';
+import { Button, Card, Form, Grid, Header, Message } from 'semantic-ui-react';
 import {geolocated} from 'react-geolocated';
 
 import FetchAlerts from '../alerts/FetchAlerts';
@@ -190,22 +190,22 @@ class Search extends Component {
           </Card.Content>
         </Card>
 
-        <Container>
+        <div className="alerts">
           {this.state.errors.map( (message, indx) => {
             return (
               <Message header="Error" content={message} key={indx} error />
             );
           })}
-        </Container>       
+        </div>       
 
         {this.state.search_params ? (
-          <Container>
+          <div>
             {!this.state.loading ? (<Header as="h2">Search results</Header>) : ''}
             <FetchAlerts params={this.state.search_params}
                          searchId={this.state.search_id}
                          loader={false}
                          loaded={(success, res) => this.loaded(success, res)} />
-          </Container>
+          </div>
         ) : ''}
         
       </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Card, Container, Grid, Header, Label, List } from 'semantic-ui-react';
+import { Card, Grid, Header, Label, List } from 'semantic-ui-react';
 
 import nl2br from 'react-newline-to-break';
 import Moment from 'react-moment';
@@ -15,11 +15,11 @@ class AlertsList extends Component {
       return '';
     }
     return (
-       <Container className="alerts">
+       <div className="alerts">
          {this.props.hits.map((hit, indx) => {
             return <AlertsList.Item key={indx} hit={hit} />
          })}
-        </Container>
+        </div>
     );
   }
 }
@@ -58,17 +58,17 @@ class AlertListItem extends Component {
     var alert = this.props.hit.alert;
 
     return (
-      <Container className="alert">
+      <div className="alert">
          {alert.infos.filter((info, indx) => indx in this.props.hit.info_hits).map((info, infoIndx) => (
             <Card key={infoIndx} className="info" fluid>
                <Card.Content>
                   <Card.Header>
                      <Grid columns="16">
                         <Grid.Row>
-                           <Grid.Column width="10" verticalAlign="middle">
+                           <Grid.Column width="10" mobile="16" verticalAlign="middle">
                               <Header as="h3">{info.headline.toUpperCase()}</Header>
                            </Grid.Column>
-                           <Grid.Column width="6" textAlign="right" verticalAlign="middle">
+                           <Grid.Column width="6" mobile="16" textAlign="right" verticalAlign="middle">
                               <Label color={this.urgencyColours[info.urgency]} size="small">
                                  {info.urgency}
                               </Label>
@@ -89,22 +89,22 @@ class AlertListItem extends Component {
                      </Grid>
                   </Card.Header>
                   <Card.Meta>
-                     Issued by {info.web ? (<a href={info.web}>{info.sender_name}</a>) : info.sender_name}
-                     <br />
-                     <Moment format="lll">{info.effective || alert.sent}</Moment> to <Moment format="lll">{info.expires}</Moment>
+                    Issued by {info.web ? (<a href={info.web}>{info.sender_name}</a>) : info.sender_name}
+                    <br />
+                    <Moment format="lll">{info.effective || alert.sent}</Moment> to <Moment format="lll">{info.expires}</Moment>
                      
-                     <Container className="areas">
-                        {info.areas.map((a, i) => {
-                           a.hit = (this.props.hit.info_hits[infoIndx] || {area_hits: []}).area_hits.indexOf(i) !== -1;
-                           return a;
-                          })
-                           .sort((a, b) => a.description >= b.description)
-                           .map((area, indx) => {
-                           return (
-                              <span className={area.hit ? 'area hit' : 'area'} key={indx}>{ area.description }</span>
-                           );
-                        })}
-                     </Container>
+                    <div className="areas">
+                      {info.areas.map((a, i) => {
+                        a.hit = (this.props.hit.info_hits[infoIndx] || {area_hits: []}).area_hits.indexOf(i) !== -1;
+                        return a;
+                      })
+                        .sort((a, b) => a.description >= b.description)
+                        .map((area, indx) => {
+                        return (
+                          <span className={area.hit ? 'area hit' : 'area'} key={indx}>{ area.description }</span>
+                        );
+                      })}
+                    </div>
                   </Card.Meta>
                </Card.Content>
                <Card.Content>
@@ -144,7 +144,7 @@ class AlertListItem extends Component {
                ) : ''}
             </Card>
          ))}
-      </Container>
+      </div>
     )
   }
 }
