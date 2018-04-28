@@ -60,8 +60,8 @@ class Search extends Component {
   ];
 
   sortOptions = [
-    { key: '-sent', value: '-sent', text: 'Sent (Descending)' },
-    { key: 'sent', value: 'sent', text: 'Sent (Ascending)' },
+    { key: '-effective', value: '-effective', text: 'Effective (Descending)' },
+    { key: 'effective', value: 'effective', text: 'Effective (Ascending)' },
     { key: '-_score', value: '-_score', text: 'Relevance' }
   ];
 
@@ -79,7 +79,7 @@ class Search extends Component {
         from: 0,
         size: 10,
         language: 'en-CA',
-        sort: "-sent",
+        sort: "-effective",
         status: "actual"
       },
       search_id: 0,
@@ -139,7 +139,7 @@ class Search extends Component {
                                  value={this.state.params.language || "any"}
                                  label="Language"
                                  onChange={(e, { value }) => this.updateValue('language', value)} />
-                    <Form.Select options={this.sortOptions} value={this.state.params.sort || "-sent"} label="Sort" onChange={(e, { value }) => this.updateValue('sort', value)} />
+                    <Form.Select options={this.sortOptions} value={this.state.params.sort || "-effective"} label="Sort" onChange={(e, { value }) => this.updateValue('sort', value)} />
                   </Form.Group>
 
                   <Form.Group widths="equal">
