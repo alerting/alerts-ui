@@ -8,7 +8,7 @@ import AlertsList from './AlertsList';
 
 class FetchAlerts extends Component {
   defaultResult = {
-    total: 0,
+    total_hits: 0,
     hits: []
   }
 
@@ -26,6 +26,10 @@ class FetchAlerts extends Component {
   componentWillReceiveProps(props) {
     if (this.props.searchId !== props.searchId) {
       this.fetch(props.params);
+    } else {
+      if (props.params.from !== this.props.params.from) {
+        props.params.from = this.props.params.from;
+      }
     }
   }
 
@@ -84,31 +88,41 @@ class FetchAlerts extends Component {
   }
 
   render() {
+    console.debug(this.props);
+
+    if (this.state.result) {
+      return (
+        <Container className="search">
+          {this.props.loader !== false ? (<Loader active={this.state.loading} size="large" content="Loading" />) : ''}
+          <AlertsList hits={this.state.result.hits} />
+
+          <Container>
+            {this.state.errors.map( (message, indx) => {
+              return (
+                <Message header="Error" content={message} key={indx} error />
+              );
+            })}
+          </Container>
+
+          {this.state.result && this.state.result.total_hits > (this.props.params.size || 10) ? (
+              <Container className="paginator">
+                <Pagination offset={this.props.params.from || 0}
+                            limit={this.props.params.size || 10}
+                            total={Math.min(this.state.result.total_hits, 10000)} onClick={(e, props, offset) => {
+                  this.updateValue('from', offset);
+                }} />
+              </Container>
+            )
+          : ''}
+        </Container>
+      );
+    }
+
     return (
       <Container className="search">
         {this.props.loader !== false ? (<Loader active={this.state.loading} size="large" content="Loading" />) : ''}
-        <AlertsList hits={this.state.result.hits} />
-
-        <Container>
-          {this.state.errors.map( (message, indx) => {
-            return (
-              <Message header="Error" content={message} key={indx} error />
-            );
-          })}
-        </Container>
-
-        {this.state.result ? (
-            <Container className="paginator">
-              <Pagination offset={this.props.params.from || 0}
-                          limit={this.props.params.size || 10}
-                          total={Math.min(this.state.result.total_hits, 10000)} onClick={(e, props, offset) => {
-                this.updateValue('from', offset);
-              }} />
-            </Container>
-          )
-        : ''}
       </Container>
-    );
+    )
   }
 }
 
