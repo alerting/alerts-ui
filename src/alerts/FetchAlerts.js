@@ -99,7 +99,9 @@ class FetchAlerts extends Component {
 
         {this.state.result ? (
             <Container className="paginator">
-              <Pagination offset={this.props.params.from || 0} limit={this.props.params.size || 10} total={Math.min(this.state.result.total, 10000)} onClick={(e, props, offset) => {
+              <Pagination offset={this.props.params.from || 0}
+                          limit={this.props.params.size || 10}
+                          total={Math.min(this.state.result.total_hits, 10000)} onClick={(e, props, offset) => {
                 this.updateValue('from', offset);
               }} />
             </Container>

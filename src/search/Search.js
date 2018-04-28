@@ -155,8 +155,14 @@ class Search extends Component {
                   </Form.Group>
 
                   <Form.Group widths={16}>
+                    <Form.Input label="Location"
+                                width={6}
+                                placeholder="Location"
+                                value={this.state.params.area || ''}
+                                onChange={(e, { value }) => this.updateValue('area', value)} />
+
                     <Form.Input label="Point (lat, lon)"
-                                width={12}
+                                width={6}
                                 placeholder="latitude, longitude"
                                 value={this.state.params.point || ''}
                                 onChange={(e, { value }) => this.updateValue('point', value.replace(' ', ''))} />
@@ -182,6 +188,7 @@ class Search extends Component {
                   <Form.Group widths="equal">
                     <Form.Input label="Headline" placeholder="Headline" value={this.state.params.headline || ''} onChange={(e, { value }) => this.updateValue('headline', value)} />
                     <Form.Input label="Description" placeholder="Description" value={this.state.params.description || ''} onChange={(e, { value }) => this.updateValue('description', value)} />
+                    <Form.Input label="Instruction" placeholder="Instruction" value={this.state.params.instruction || ''} onChange={(e, { value }) => this.updateValue('instruction', value)} />
                   </Form.Group>
 
                   <Form.Button>Search</Form.Button>

@@ -10,7 +10,7 @@ const Active = () => (
       <p>
          <strong>Active alerts are not correctly processed at this time, so this is a list of most recently issued alerts.</strong>
       </p>
-      <FetchAlerts params={{ language: 'en-CA', sort: '-sent', status: 'actual', active: true }} />
+      <FetchAlerts params={{ language: 'en-CA', sort: '-effective', status: 'actual', active: true }} />
    </div>
 )
 
