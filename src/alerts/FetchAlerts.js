@@ -88,12 +88,10 @@ class FetchAlerts extends Component {
   }
 
   render() {
-    console.debug(this.props);
-
     if (this.state.result) {
       return (
         <Container className="search">
-          {this.props.loader !== false ? (<Loader active={this.state.loading} size="large" content="Loading" />) : ''}
+          {this.props.loader !== false ? (<Loader active={this.state.loading} size="medium" content="Fetching alerts" inline="centered" />) : ''}
           <AlertsList hits={this.state.result.hits} />
 
           <Container>
@@ -120,7 +118,7 @@ class FetchAlerts extends Component {
 
     return (
       <Container className="search">
-        {this.props.loader !== false ? (<Loader active={this.state.loading} size="large" content="Loading" />) : ''}
+        {this.props.loader !== false ? (<Loader active={this.state.loading} size="medium" content="Fetching alerts" inline="centered" />) : ''}
       </Container>
     )
   }

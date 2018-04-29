@@ -1,104 +1,113 @@
 import React, { Component } from 'react';
-import { Header, Tab } from 'semantic-ui-react';
 
-import moment from 'moment';
-import 'moment-timezone';
-import Pluralize from 'react-pluralize';
-
+import { Menu, Loader } from 'semantic-ui-react';
+import { Switch, Route, NavLink, withRouter } from 'react-router-dom';
 import {geolocated} from 'react-geolocated';
-
+import moment from 'moment';
+import Pluralize from 'react-pluralize';
 import FetchAlerts from '../alerts/FetchAlerts';
 
-class Active extends Component {
-   loaded(success, obj) {
+const Active = () => {
+   return (
+      <div>
+         <Menu pointing secondary>
+            <Menu.Item as={NavLink} exact to ="/active" content="Active for your location" />
+            <Menu.Item as={NavLink} exact to ="/active/all" content="All active" />
+         </Menu>
+
+         <Switch>
+            <Route exact path='/active' component={Active.Localized} />
+            <Route exact path='/active/all' component={Active.All} />
+         </Switch>
+      </div>
+   )
+};
+
+class AlertsLocalized extends Component {
+   loaded(success, results) {
       if (success) {
          var state = this.state || {};
-         state.active = obj;
+         state.total_hits = results.total_hits;
          this.setState(state);
       }
    }
 
-   yourLoaded(success, obj) {
-      if (success) {
-         var state = this.state || {};
-         state.yourActive = obj;
-         this.setState(state);
+   render() {
+      // If the user's browser doesn't have geolocation,
+      // show a message to this effect.
+      if (!this.props.isGeolocationAvailable) {
+         return <p>Your browser does not support Geolocation.</p>;
       }
-   }
 
-   renderYourLocation() {
+      // If geolocation is not enabled,
+      // show a message to this effect.
+      if (!this.props.isGeolocationEnabled) {
+         return <p>Geolocation is not enabled.</p>;
+      }
+
+      // If we don't have the user's location yet,
+      // let's show a message to this effect.
       if (!this.props.coords) {
-         return (
-            <p>Finding your location...</p>
-         );
+         return <Loader active size="medium" content="Locating" inline="centered" />;
       }
 
       return (
          <div>
-            {this.state && this.state.yourActive
-               ? (<p>There are <Pluralize singular="active alert" count={this.state.yourActive.total_hits || 0} zero="no active alerts" /> for your location.</p>)
-               : 'Loading alerts for your location...'
-            }
+            {this.state && 'total_hits' in this.state
+               ? <p>There <Pluralize singular="is" plural="are" count={this.state.total_hits} showCount={false} /> <Pluralize singular="active alert" count={this.state.total_hits} zero="no active alerts" /> for your location.</p>
+               : ''}
 
-            <FetchAlerts   loaded={(success, obj) => this.yourLoaded(success, obj)}
-                     params={{ language: 'en-CA',
-                     point: `${this.props.coords.latitude},${this.props.coords.longitude}`,
-                     sort: '-effective',
-                     status: 'actual',
-                     effective_lte: moment().toISOString(),
-                     expires_gte: moment().toISOString()}} />
-         </div>
-      );
-   }
-
-   render() {
-      const panes = [
-         { menuItem: 'Active at your location', render: () => this.renderYourLocation() },
-         { menuItem: 'All active alerts', render: () => <Active.AllAlerts /> },
-      ];
-
-      return (
-         <div>
-            <Header as="h1">Active Alerts</Header>
-            <Tab menu={{ secondary: true, pointing: true}} panes={panes} />
+            <FetchAlerts loaded={(success, results) => this.loaded(success, results)}
+                         params={{
+                            language: 'en-CA',
+                            sort: '-effective',
+                            status: 'actual',
+                            effective_lte: moment().toISOString(),
+                            expires_gte: moment().toISOString(),
+                            point: `${this.props.coords.latitude},${this.props.coords.longitude}`
+                         }} />
          </div>
       );
    }
 }
 
-class AllActiveAlerts extends Component {
-   loaded(success, obj) {
-      if (success) {
-         var state = this.state || {};
-         state.hits = obj.total_hits;
-         this.setState(state);
-      }
-   }
-
-   render() {
-      return (
-         <div>
-            {this.state && this.state.hits
-               ? (<p>There are <Pluralize singular="active alert" count={this.state.hits || 0} />.</p>)
-               : ''
-            }
-
-            <FetchAlerts   loaded={(success, obj) => this.loaded(success, obj)}
-                           params={{ language: 'en-CA',
-                                 sort: '-effective',
-                                 status: 'actual',
-                                 effective_lte: moment().toISOString(),
-                                 expires_gte: moment().toISOString()}} />
-         </div>
-      );
-   }
-}
-
-Active.AllAlerts = AllActiveAlerts;
-
-export default geolocated({
+Active.Localized = geolocated({
    positionOptions: {
      enableHighAccuracy: false
    },
    userDecisionTimeout: 5000
- })(Active);
+ })(AlertsLocalized);
+
+
+class ActiveAll extends Component {
+   loaded(success, results) {
+      if (success) {
+         var state = this.state || {};
+         state.total_hits = results.total_hits;
+         this.setState(state);
+      }
+   }
+
+   render() {
+      return (
+         <div>
+            {this.state && 'total_hits' in this.state
+               ? <p>There <Pluralize singular="is" plural="are" count={this.state.total_hits} showCount={false} /> <Pluralize singular="active alert" count={this.state.total_hits} zero="no active alerts" />.</p>
+               : ''}
+
+            <FetchAlerts loaded={(success, results) => this.loaded(success, results)}
+                         params={{
+                            language: 'en-CA',
+                            sort: '-effective',
+                            status: 'actual',
+                            effective_lte: moment().toISOString(),
+                            expires_gte: moment().toISOString()
+                         }} />
+         </div>
+      );
+   }
+}
+
+Active.All = ActiveAll;
+
+export default withRouter(Active);

@@ -3,7 +3,7 @@ import './App.css';
 
 import { Grid } from 'semantic-ui-react';
 
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import AppHeader from './header/AppHeader';
 import AppMenu from './header/AppMenu';
@@ -29,7 +29,8 @@ class App extends Component {
           <Grid.Row>
             <Grid.Column width={16}>
               <Switch>
-                <Route exact path='/' component={Active} />
+                <Route exact path='/' render={() => <Redirect to="/active" />} />
+                <Route path='/active' component={Active} />
                 <Route exact path='/search' component={Search} />
               </Switch>
             </Grid.Column>
