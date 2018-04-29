@@ -59,6 +59,7 @@ class AlertsLocalized extends Component {
 
             <FetchAlerts loaded={(success, results) => this.loaded(success, results)}
                          params={{
+                            superseded: false,
                             language: 'en-CA',
                             sort: '-effective',
                             status: 'actual',
@@ -97,6 +98,7 @@ class ActiveAll extends Component {
 
             <FetchAlerts loaded={(success, results) => this.loaded(success, results)}
                          params={{
+                            superseded: false,
                             language: 'en-CA',
                             sort: '-effective',
                             status: 'actual',
