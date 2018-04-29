@@ -1,6 +1,7 @@
-/*.alert {
+.alert {
+   display: block;
    margin: 1rem 0;
-}*/
+}
 
 .visible.transition {
    margin-top: auto !important;
