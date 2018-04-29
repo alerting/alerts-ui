@@ -1,7 +1,13 @@
-.alert {
+/*.alert {
    margin: 1rem 0;
-}
+}*/
 
+.visible.transition {
+   margin-top: auto !important;
+   display: inline-block !important;
+   position: relative;
+   top: 0;
+ }
 .areas {
    font-size: .9em !important;
    margin-top: .5rem;
