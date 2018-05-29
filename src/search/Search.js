@@ -158,8 +158,8 @@ class Search extends Component {
                     <Form.Input label="Location"
                                 width={6}
                                 placeholder="Location"
-                                value={this.state.params.area || ''}
-                                onChange={(e, { value }) => this.updateValue('area', value)} />
+                                value={this.state.params.area_description || ''}
+                                onChange={(e, { value }) => this.updateValue('area_description', value)} />
 
                     <Form.Input label="Point (lat, lon)"
                                 width={6}

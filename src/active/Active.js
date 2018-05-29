@@ -42,7 +42,7 @@ class AlertsLocalized extends Component {
   loaded(success, results) {
     if (success) {
       var state = this.state;
-      state.total_hits = results.total_hits;
+      state.total = parseInt(results.total);
       state.loaded = true;
       this.setState(state);
     }
@@ -81,7 +81,7 @@ class AlertsLocalized extends Component {
           : null}
 
         {this.state.loaded
-          ? <p>There <Pluralize singular="is" plural="are" count={this.state.total_hits} showCount={false} /> <Pluralize singular="active alert" count={this.state.total_hits} zero="no active alerts" /> for your location.</p>
+          ? <p>There <Pluralize singular="is" plural="are" count={this.state.total} showCount={false} /> <Pluralize singular="active alert" count={this.state.total} zero="no active alerts" /> for your location.</p>
           : null}
 
         <FetchAlerts loaded={(success, results) => this.loaded(success, results)}
@@ -121,7 +121,7 @@ class ActiveAll extends Component {
   loaded(success, results) {
     if (success) {
       var state = this.state;
-      state.total_hits = results.total_hits;
+      state.total = results.total;
       state.loaded = true;
       this.setState(state);
     }
@@ -142,7 +142,7 @@ class ActiveAll extends Component {
           : null}
 
         {this.state.loaded
-          ? <p>There <Pluralize singular="is" plural="are" count={this.state.total_hits} showCount={false} /> <Pluralize singular="active alert" count={this.state.total_hits} zero="no active alerts" />.</p>
+          ? <p>There <Pluralize singular="is" plural="are" count={this.state.total} showCount={false} /> <Pluralize singular="active alert" count={this.state.total} zero="no active alerts" />.</p>
           : null}
 
         <FetchAlerts loaded={(success, results) => this.loaded(success, results)}

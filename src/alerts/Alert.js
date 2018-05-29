@@ -10,32 +10,32 @@ import { withRouter } from 'react-router-dom';
 
 class Alert extends Component {
   static urgencyColours = {
-    "Immediate": "red",
-    "Expected": "orange",
-    "Future": "yellow",
-    "Past": "green"
+    "IMMEDIATE": "red",
+    "EXPECTED": "orange",
+    "FUTURE": "yellow",
+    "PAST": "green"
   }
 
   static severityColours = {
-    "Extreme": "red",
-    "Severe": "orange",
-    "Moderate": "yellow",
-    "Minor": "green"
+    "EXTREME": "red",
+    "SEVERE": "orange",
+    "MODERATE": "yellow",
+    "MINOR": "green"
   }
 
   static certaintyColours = {
-    "Observed": "red",
-    "Likely": "orange",
-    "Possible": "yellow",
-    "Unlikely": "green"
+    "OBSERVED": "red",
+    "LIKELY": "orange",
+    "POSSIBLE": "yellow",
+    "UNLIKELY": "green"
   }
 
   static typeColours = {
-    "Alert": "red",
-    "Update": "orange",
-    "Cancel": "green",
-    "Ackowledge": "teal",
-    "Error": "black"
+    "ALERT": "red",
+    "UPDATE": "orange",
+    "CANCEL": "green",
+    "ACK": "teal",
+    "ERROR": "black"
   }
 
   constructor() {
@@ -79,8 +79,8 @@ class Alert extends Component {
     const aid = id[0];
     const iid = parseInt(id[1], 10)
 
-    fetch(URI('https://functions.zacharyseguin.ca/function/cap-get')
-      .search({ id: aid }).toString())
+    fetch(URI(`https://api.alerts.zacharyseguin.ca/alerts/${aid}`)
+      .toString())
       .then(res => res.json(), err => {
         var state = this.state;
         state.error = true;
@@ -142,7 +142,7 @@ class Alert extends Component {
             </Grid>
           </Card.Header>
           <Card.Meta>
-            Issued by {info.web ? (<a href={info.web}>{info.sender_name}</a>) : info.sender_name}
+            Issued by {info.web ? (<a href={info.web}>{info.senderName}</a>) : info.sender_name}
             <br />
             <Moment format="lll">{info.effective || alert.sent}</Moment> to <Moment format="lll">{info.expires}</Moment>
 
@@ -161,7 +161,7 @@ class Alert extends Component {
             {nl2br(info.description.trim())}
           </Card.Description>
         </Card.Content>
-        {info.instruction.length > 0 ? (
+        {(info.instruction || "").length > 0 ? (
           <Card.Content>
             <Card.Description className="instruction">
               {nl2br(info.instruction.trim())}

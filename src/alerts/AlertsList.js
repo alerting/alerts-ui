@@ -64,7 +64,7 @@ class AlertListItem extends Component {
                 </Grid>
               </Card.Header>
               <Card.Meta>
-              Issued by {info.sender_name}
+              Issued by {info.senderName}
               <br />
               <Moment format="lll">{info.effective || alert.sent}</Moment> to <Moment format="lll">{info.expires}</Moment>
                 
