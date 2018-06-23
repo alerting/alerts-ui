@@ -6,6 +6,7 @@ import { geolocated } from 'react-geolocated';
 import moment from 'moment';
 import Pluralize from 'react-pluralize';
 import FetchAlerts from '../alerts/FetchAlerts';
+import AlertsMap from '../alerts/AlertsMap';
 
 import './Active.css';
 
@@ -42,7 +43,7 @@ class AlertsLocalized extends Component {
   loaded(success, results) {
     if (success) {
       var state = this.state;
-      state.total = parseInt(results.total);
+      state.total = parseInt(results.total, 10);
       state.loaded = true;
       this.setState(state);
     }
@@ -114,6 +115,8 @@ class ActiveAll extends Component {
 
     this.state = {
       time: moment(),
+      total: 0,
+      hits: [],
       loaded: false
     };
   }
@@ -122,6 +125,7 @@ class ActiveAll extends Component {
     if (success) {
       var state = this.state;
       state.total = results.total;
+      state.hits = results.hits;
       state.loaded = true;
       this.setState(state);
     }
@@ -131,6 +135,7 @@ class ActiveAll extends Component {
     var state = this.state;
     state.time = moment();
     state.loaded = false;
+    state.hits = [];
     this.setState(state);
   }
 
@@ -144,6 +149,8 @@ class ActiveAll extends Component {
         {this.state.loaded
           ? <p>There <Pluralize singular="is" plural="are" count={this.state.total} showCount={false} /> <Pluralize singular="active alert" count={this.state.total} zero="no active alerts" />.</p>
           : null}
+
+        <AlertsMap hits={ this.state.hits } selectable={true} />
 
         <FetchAlerts loaded={(success, results) => this.loaded(success, results)}
           searchId={this.state.time.toISOString()}

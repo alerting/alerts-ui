@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 
-import { Card, Grid, Header, Label, List, Modal, Loader, Message } from 'semantic-ui-react';
+import { Accordion, Card, Grid, Header, Icon, Label, List, Modal, Loader, Message } from 'semantic-ui-react';
 
 import nl2br from 'react-newline-to-break';
 import Moment from 'react-moment';
 import 'moment-timezone';
 import URI from 'urijs';
 import { withRouter } from 'react-router-dom';
+import Pluralize from 'react-pluralize';
+
+import AlertsMap from './AlertsMap';
+
+import './Alert.css';
 
 class Alert extends Component {
   static urgencyColours = {
@@ -42,6 +47,7 @@ class Alert extends Component {
     super();
 
     this.state = {
+      areaIndex: -1,
       error: false,
       hit: null,
     };
@@ -97,6 +103,12 @@ class Alert extends Component {
       });
   }
 
+  handleAreasClick(e, p) {
+    var state = this.state;
+    state.areasIndex = state.areasIndex === p.index ? -1 : p.index;
+    this.setState(state);
+  }
+
   render() {
     // If we had an error fetching details,
     // indicate so.
@@ -119,7 +131,7 @@ class Alert extends Component {
             <Grid columns="16">
               <Grid.Row>
                 <Grid.Column largeScreen="12" computer="10" widescreen="10" tablet="10" mobile="16" verticalAlign="middle">
-                  <Header as="h3">{info.headline.toUpperCase()}</Header>
+                  <Header as="h3">{(info.headline || "").toUpperCase()}</Header>
                 </Grid.Column>
                 <Grid.Column largeScreen="4" computer="6" widescreen="6" tablet="6" mobile="16" textAlign="right" verticalAlign="middle">
                   <Label color={Alert.urgencyColours[info.urgency]} size="small">
@@ -146,14 +158,26 @@ class Alert extends Component {
             <br />
             <Moment format="lll">{info.effective || alert.sent}</Moment> to <Moment format="lll">{info.expires}</Moment>
 
-            <div className="areas">
-              {info.areas.sort((a, b) => a.description >= b.description)
+            <div className="areasMap">
+              <AlertsMap hits={[ this.state.hit ]} />
+            </div>
+
+            <Accordion>
+              <Accordion.Title active={this.state.areasIndex === 0} index={0} onClick={(e, p) => this.handleAreasClick(e, p)}>
+                <Icon name='dropdown' />
+                Affected areas (<Pluralize singular="area" count={info.areas.length} />)
+              </Accordion.Title>
+              <Accordion.Content active={this.state.areasIndex === 0}>
+              <div className="areas">
+                {info.areas.sort((a, b) => a.description >= b.description)
                 .map((area, indx) => {
                   return (
                     <span className='area' key={indx}>{area.description}</span>
                   );
                 })}
-            </div>
+              </div>
+              </Accordion.Content>
+            </Accordion>
           </Card.Meta>
         </Card.Content>
         <Card.Content>
