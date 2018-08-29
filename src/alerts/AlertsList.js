@@ -5,7 +5,7 @@ import { Card, Grid, Header, Label } from 'semantic-ui-react';
 import Moment from 'react-moment';
 import 'moment-timezone';
 import Pluralize from 'react-pluralize';
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 
 import Alert from './Alert';
 
@@ -32,7 +32,7 @@ class AlertListItem extends Component {
 
     return (
       <Link className="alert" to={{
-        pathname: `/alert/${this.props.hit.id}`,
+        pathname: `/alerts/${this.props.hit.id}`,
         state: { modal: true, hit: this.props.hit },
       }}>
         <Card fluid>
@@ -67,7 +67,7 @@ class AlertListItem extends Component {
               Issued by {info.senderName}
               <br />
               <Moment format="lll">{info.effective || alert.sent}</Moment> to <Moment format="lll">{info.expires}</Moment>
-                
+
               <div className="areas">
                 {info.areas.map((a, i) => {
                     a.hit = (this.props.hit.area_hits || []).indexOf(i) !== -1;

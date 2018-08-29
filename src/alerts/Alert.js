@@ -85,7 +85,7 @@ class Alert extends Component {
     const aid = id[0];
     const iid = parseInt(id[1], 10)
 
-    fetch(URI(`https://api.alerts.zacharyseguin.ca/alerts/${aid}`)
+    fetch(URI(`/api/alerts/${aid}`)
       .toString())
       .then(res => res.json(), err => {
         var state = this.state;
@@ -198,9 +198,9 @@ class Alert extends Component {
               {info.resources.map(res => {
                 var resourceUri = res.digest
                   ? URI(res.digest.toLowerCase()).suffix(URI(res.uri).suffix().toLowerCase())
-                    .absoluteTo(URI("https://www2.csclub.uwaterloo.ca/~ztseguin/alerts/resources/"))
+                    .absoluteTo(URI("https://zsalerts.blob.core.windows.net/resources/"))
                   : URI(URI(res.uri).filename().toLowerCase())
-                    .absoluteTo(URI("https://www2.csclub.uwaterloo.ca/~ztseguin/alerts/resources/"));
+                    .absoluteTo(URI("https://zsalerts.blob.core.windows.net/resources/"));
 
                 return (
                   <List.Item key={resourceUri}>

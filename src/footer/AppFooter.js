@@ -15,10 +15,6 @@ import './AppFooter.css';
 const AppFooter = () => (
    <Container as="footer" className="app-footer">
       <Container as="p" textAlign="center">
-        Visit the <a href="https://legacy.alerts.zacharyseguin.ca">Legacy Alerts Canada System</a>.
-      </Container>
-   
-      <Container as="p" textAlign="center">
         Copyright &copy; 2018 &mdash; <a href="https://zacharyseguin.ca">Zachary Seguin</a>
         <br />
         Source code available on <a href="https://github.com/alerting">GitHub</a>.

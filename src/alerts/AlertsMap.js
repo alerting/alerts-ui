@@ -14,7 +14,7 @@ class AlertsMap extends Component {
     lineWidth: 2,
     lineJoin: "round"
   });
- 
+
   renderOverlays(props) {
     // Remove current overlays
     this._map.removeOverlays(this._map.overlays);
@@ -41,7 +41,7 @@ class AlertsMap extends Component {
                 });
               })
 
-              var overlay = new window.mapkit.PolygonOverlay(points, { 
+              var overlay = new window.mapkit.PolygonOverlay(points, {
                 style: this.areaStyle,
                 data: hit
               });
@@ -82,7 +82,7 @@ class AlertsMap extends Component {
 
       if (e.overlay) {
         this.props.history.push({
-          pathname: `/alert/${e.overlay.data.id}`,
+          pathname: `/alerts/${e.overlay.data.id}`,
           state: { modal: true, hit: e.overlay.data }
         });
       }

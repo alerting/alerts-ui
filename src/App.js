@@ -46,9 +46,9 @@ class App extends Component {
                 <Route exact path='/' render={() => <Redirect to="/active" />} />
                 <Route path='/active' component={Active} />
                 <Route path='/search' component={Search} />
-                <Route path='/alert/:id' component={Alert} />
+                <Route path='/alerts/:id' component={Alert} />
               </Switch>
-              { isModal ? <Route path="/alert/:id" component={Alert.Modal} /> : null}
+              { isModal ? <Route path="/alerts/:id" component={Alert.Modal} /> : null}
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>

@@ -49,7 +49,7 @@ class FetchAlerts extends Component {
     state.errors = [];
     this.setState(state);
 
-    fetch(URI('https://api.alerts.zacharyseguin.ca/alerts')
+    fetch(URI('/api/alerts')
       .search(params || {}).toString())
       .then(res => {
         return res.json();
@@ -102,10 +102,10 @@ class FetchAlerts extends Component {
             })}
           </Container>
 
-          {this.state.result && this.state.result.total > (this.props.params.size || 10) ? (
+          {this.state.result && this.state.result.total > (this.props.params.count || 10) ? (
               <Container className="paginator">
                 <Pagination offset={this.props.params.start || 0}
-                            limit={this.props.params.size || 10}
+                            limit={this.props.params.count || 10}
                             total={Math.min(parseInt(this.state.result.total, 10), 10000)} onClick={(e, props, offset) => {
                   this.updateValue('start', offset);
                 }} />

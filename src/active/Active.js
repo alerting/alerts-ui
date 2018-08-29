@@ -88,6 +88,7 @@ class AlertsLocalized extends Component {
         <FetchAlerts loaded={(success, results) => this.loaded(success, results)}
           searchId={this.state.time.toISOString()}
           params={{
+            count: 100,
             superseded: false,
             language: 'en-CA',
             sort: '-effective',
@@ -155,6 +156,7 @@ class ActiveAll extends Component {
         <FetchAlerts loaded={(success, results) => this.loaded(success, results)}
           searchId={this.state.time.toISOString()}
           params={{
+            count: 100,
             superseded: false,
             language: 'en-CA',
             sort: '-effective',
