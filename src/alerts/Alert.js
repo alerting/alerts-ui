@@ -182,13 +182,13 @@ class Alert extends Component {
         </Card.Content>
         <Card.Content>
           <Card.Description>
-            {nl2br(info.description.trim())}
+            {nl2br((info.description || "").trim())}
           </Card.Description>
         </Card.Content>
         {(info.instruction || "").length > 0 ? (
           <Card.Content>
             <Card.Description className="instruction">
-              {nl2br(info.instruction.trim())}
+              {nl2br((info.instruction || "").trim())}
             </Card.Description>
           </Card.Content>
         ) : ''}
@@ -198,9 +198,9 @@ class Alert extends Component {
               {info.resources.map(res => {
                 var resourceUri = res.digest
                   ? URI(res.digest.toLowerCase()).suffix(URI(res.uri).suffix().toLowerCase())
-                    .absoluteTo(URI("https://zsalerts.blob.core.windows.net/resources/"))
+                    .absoluteTo(URI("/resources/"))
                   : URI(URI(res.uri).filename().toLowerCase())
-                    .absoluteTo(URI("https://zsalerts.blob.core.windows.net/resources/"));
+                    .absoluteTo(URI("/resources/"));
 
                 return (
                   <List.Item key={resourceUri}>

@@ -57,7 +57,7 @@ class FetchAlerts extends Component {
         console.error(err);
         var state = this.state;
         state.loading = false;
-        state.errors = ["An unexpected error occured while requesting alerts."];
+        state.errors = ["An unexpected error occurred while requesting alerts."];
         this.setState(state);
 
         if (this.props.loaded) {
@@ -78,7 +78,7 @@ class FetchAlerts extends Component {
         console.error(err);
         var state = this.state;
         state.loading = false;
-        state.errors = ["An unexpected error occured while requesting alerts."];
+        state.errors = ["An unexpected error occurred while requesting alerts."];
         this.setState(state);
 
         if (this.props.loaded) {

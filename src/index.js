@@ -3,11 +3,13 @@ import ReactDOM from 'react-dom';
 import 'semantic-ui-css/semantic.min.css';
 import './index.css';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import { unregister } from './registerServiceWorker';
 
 import { BrowserRouter } from 'react-router-dom';
 
 import privateConfig from './private';
+
+unregister();
 
 // Init MapKit
 window.mapkit.init({
@@ -19,4 +21,3 @@ ReactDOM.render((
       <App />
    </BrowserRouter>
 ), document.getElementById('root'));
-registerServiceWorker();
