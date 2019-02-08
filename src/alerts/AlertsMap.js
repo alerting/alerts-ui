@@ -27,7 +27,11 @@ class AlertsMap extends Component {
     // Create overlays for the hits
     if (props.hits) {
       props.hits.forEach(hit => {
+        if (!hit.info.areas) return;
+
         hit.info.areas.forEach(area => {
+          if (!area.polygons) return;
+
           // POLYGONS
           area.polygons.forEach(polygon => {
               // Create the mapkit overlay
