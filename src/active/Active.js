@@ -156,9 +156,9 @@ class ActiveAll extends Component {
         <FetchAlerts loaded={(success, results) => this.loaded(success, results)}
           searchId={this.state.time.toISOString()}
           params={{
-            count: 100,
+            count: 1000,
             superseded: false,
-            language: 'en-CA',
+            language: 'en-*',
             sort: '-effective',
             status: 'actual',
             effective_lte: this.state.time.toISOString(),

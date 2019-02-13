@@ -67,7 +67,9 @@ class Search extends Component {
 
   languageOptions = [
     { key: 'any', value: 'any', text: 'Any' },
-    { key: 'en-CA', value: 'en-CA', text: 'English' },
+    { key: 'en-*', value: 'en-*', text: 'English (All)' },
+    { key: 'en-CA', value: 'en-CA', text: 'English (Canada)' },
+    { key: 'en-US', value: 'en-US', text: 'English (United States)' },
     { key: 'fr-CA', value: 'fr-CA', text: 'French' }
   ];
 
@@ -78,7 +80,7 @@ class Search extends Component {
       params: {
         from: 0,
         size: 10,
-        language: 'en-CA',
+        language: 'en-*',
         sort: "-effective",
         status: "actual"
       },
@@ -203,7 +205,7 @@ class Search extends Component {
               <Message header="Error" content={message} key={indx} error />
             );
           })}
-        </div>       
+        </div>
 
         {this.state.search_params ? (
           <div>
@@ -214,7 +216,7 @@ class Search extends Component {
                          loaded={(success, res) => this.loaded(success, res)} />
           </div>
         ) : ''}
-        
+
       </div>
     );
   }
