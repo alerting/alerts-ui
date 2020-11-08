@@ -1,0 +1,42 @@
+$font-family-sans-serif: Muli, sans-serif;
+//$primary: #f02c2c;
+//$primary: #da0f0f;
+$primary: #336051;
+$link-color: #6bb099;
+
+a:hover {
+    color: darken($link-color, 15%);
+}
+
+$font-size-base: 1rem;
+$h1-font-size: $font-size-base * 2.25;
+$h2-font-size: $font-size-base * 1.8;
+$h3-font-size: $font-size-base * 1.5;
+$h4-font-size: $font-size-base * 1.25;
+$h5-font-size: $font-size-base * 1;
+$h6-font-size: $font-size-base * 0.8;
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    color: rgb(218, 216, 216);
+}
+
+hr {
+    border-color: #666;
+}
+
+p hr {
+    border-color: #555;
+}
+
+i.large {
+    font-size: 70px;
+}
+
+.btn.round {
+    border-radius: 100px;
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    line-height: 35px;
+    text-align: center;
+}
