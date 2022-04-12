@@ -13,7 +13,7 @@
     "bootswatch": "^4.4.1",
     "filesize": "^4.2.1",
     "mapkit-vue": "0.0.1",
-    "urijs": "^1.19.2",
+    "urijs": "^1.19.11",
     "vue": "^2.6.11",
     "vue-browser-geolocation": "^1.8.0",
     "vue-class-component": "^6.0.0",
